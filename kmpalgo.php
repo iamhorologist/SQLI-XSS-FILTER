@@ -13,7 +13,8 @@ function SearchString($str, $pat)
 
 	while ($i < $N)
 	{
-		if ($pat[$j] == $str[$i])
+		//if ($pat[$j] == $str[$i])
+		if(strcasecmp($pat[$j],$str[$i]) == 0)
 		{
 			$j++;
 			$i++;
@@ -25,7 +26,7 @@ function SearchString($str, $pat)
 			$j = $lps[$j - 1];
 		}
 
-		else if ($i < $N && $pat[$j] != $str[$i])
+		else if ($i < $N && strcasecmp($pat[$j],$str[$i]) != 0)
 		{
 			if ($j != 0)
 				$j = $lps[$j - 1];
@@ -46,7 +47,7 @@ function ComputeLPSArray($pat, $m, &$lps)
 
 	while ($i < $m)
 	{
-		if ($pat[$i] == $pat[$len])
+		if (strcasecmp($pat[$i],$pat[$len]) == 0)
 		{
 			$len++;
 			$lps[$i] = $len;
