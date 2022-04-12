@@ -26,8 +26,3 @@ function makeCharTable($string) {
     }
     return $table;
 }
-
-$data = "the quick brown fox jumps over the lazy dog";
-$value = BoyerMoore($data, "he");
-echo $value
-?>
