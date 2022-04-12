@@ -2,11 +2,11 @@
 include 'kmpalgo.php';
 
 $time_start = microtime(true); 
-$data = array("Will this be Blocked","Definately a good text","convert( int, (select * from users LIMIT 1))","convert( int, ”aaaa”)","round((select username from users), 3)");
+$data = array("Will this be Blocked","Definately a good text","‘ ; drop table users ; #","‘ ; delete * from customer ; #","; insert into users values (‘Bala’, ‘1234’) ; #","‘ ; update table users set username = ‘Bala’, password =’123’ ; #");
 $result=0;
 $counter=0;
-$injPattern = array("'",")");
-$sqlFn=array("convert(","avg(","round(","sum(","max(","min(");
+$injPattern = array("'",";",";","#");
+$sqlFn=array("delete","drop","insert","truncate","update","select","alter");
 echo " <link rel='stylesheet' href='style.css'> <table>
 <tr>
   <th>Payload</th>
@@ -48,6 +48,7 @@ echo "
   
 </tr>
 ";}
+
 }
 }
 echo " 

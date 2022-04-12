@@ -1,12 +1,12 @@
 <?php 
-include 'kmpalgo.php';
+include 'rabin-karpalgo.php';
 
 $time_start = microtime(true); 
-$data = array("Will this be Blocked","Definately a good text","convert( int, (select * from users LIMIT 1))","convert( int, ”aaaa”)","round((select username from users), 3)");
+$data = array("Will this be Blocked","Definately a good text","‘ ; drop table users ; #","‘ ; delete * from customer ; #","; insert into users values (‘Bala’, ‘1234’) ; #","‘ ; update table users set username = ‘Bala’, password =’123’ ; #");
 $result=0;
 $counter=0;
-$injPattern = array("'",")");
-$sqlFn=array("convert(","avg(","round(","sum(","max(","min(");
+$injPattern = array("'",";",";","#");
+$sqlFn=array("delete","drop","insert","truncate","update","select","alter");
 echo " <link rel='stylesheet' href='style.css'> <table>
 <tr>
   <th>Payload</th>
@@ -22,13 +22,13 @@ while (1){
 for($k=0;$k<count($data);$k++){
    // echo $data[$k];
 for($i=0;$i<count($injPattern);$i++){
-    if(count(SearchString($data[$k],$injPattern[$i])) > 0){
+    if((search_rabin($injPattern[$i],$data[$k],101)) > 0){
         
         if($i==0){
             $counter=0;
             //echo $injPattern[i] . " with " .$data[$k];
 		    for($j=0;$j<count($sqlFn);$j++){
-			if(count(SearchString($data[$k],$sqlFn[$j])) > 0 ){echo $lOprt[$j]."\n";for($h=0;$h<count(SearchString($data[$k],$lOprt[$j]));$h++){echo SearchString($data[$k],$lOprt[$j])[$h];};$counter++;}
+			if((search_rabin($sqlFn[$j],$data[$k],101)) > 0 ){echo $lOprt[$j]."\n";$counter++;}
 		}
         }
 
@@ -48,6 +48,7 @@ echo "
   
 </tr>
 ";}
+
 }
 }
 echo " 

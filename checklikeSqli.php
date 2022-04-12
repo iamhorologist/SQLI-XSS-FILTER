@@ -2,11 +2,11 @@
 include 'kmpalgo.php';
 
 $time_start = microtime(true); 
-$data = array("Will this be Blocked","Definately a good text","convert( int, (select * from users LIMIT 1))","convert( int, ”aaaa”)","round((select username from users), 3)");
+$data = array("Will this be Blocked","Definately a good text","a‘ OR username LIKE ‘S%’;#","‘ OR password LIKE ‘%2%’;#","‘ OR username LIKE ‘%e’;#");
 $result=0;
 $counter=0;
-$injPattern = array("'",")");
-$sqlFn=array("convert(","avg(","round(","sum(","max(","min(");
+$injPattern = array("'","like","'","%","'","#");
+$sqlFn=array("or","||");
 echo " <link rel='stylesheet' href='style.css'> <table>
 <tr>
   <th>Payload</th>
@@ -43,7 +43,7 @@ if($lakh==1){
 echo " 
 
 <tr>
-  <td>$data[$k]</td>
+ <td>$data[$k]</td>
   <td>$result</td>
   
 </tr>

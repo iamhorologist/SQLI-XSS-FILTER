@@ -1,5 +1,5 @@
 <?php 
-include 'kmpalgo.php';
+include 'rabin-karpalgo.php';
 
 //$data = "' OR true;--";
 $time_start = microtime(true); 
@@ -22,12 +22,13 @@ while (1){
     }
 for($x=0;$x<count($data);$x++){
 for($i=0;$i<count($injPattern);$i++){
-	$counter=0;
-	if(count(SearchString($data[$x],$injPattern[$i])) > 0){
+    $counter=0;
+	if(search_rabin($injPattern[$i],$data[$x],101) > 0){
 	if($i==0){
-		
+		$counter=0;
 		for($j=0;$j<count($lOprt);$j++){
-			if(count(SearchString($data[$x],$lOprt[$j])) > 0 ){$counter++;}
+            
+			if(search_rabin($lOprt[$j],$data[$x],101)){$counter++;}
 		}
 	}
 	
@@ -36,7 +37,7 @@ for($i=0;$i<count($injPattern);$i++){
 	if($i==2){
 		$counter=0;
 		for($k=0;$k<count($rOprt);$k++){
-			if(count(SearchString($data[$x],$rOprt[$k])) > 0 ){$counter++;}
+			if(search_rabin($rOprt[$k],$data[$x],101) >0){$counter++;}
 		}
 	}
 
